@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: dnd_mysql
+    image: mysql:8.0.28-oracle
+    env_file:
+      - .local.env
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql:rw
+
+volumes:
+  mysql:
+    driver: local
