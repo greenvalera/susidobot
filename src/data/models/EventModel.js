@@ -1,8 +1,9 @@
 import {DataTypes, STRING} from "sequelize";
 import sequelize from "../sequelize/index.js";
+import PostModel from "./PostModel.js";
 
 const EventModel = sequelize.define('Event', {
-  'id': {
+  id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
@@ -30,6 +31,6 @@ const EventModel = sequelize.define('Event', {
   },
 });
 
-EventModel.sync();
+EventModel.hasOne(PostModel);
 
 export default EventModel;

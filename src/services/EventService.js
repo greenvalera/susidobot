@@ -1,4 +1,5 @@
-import {EventModel, CurrentEventModel} from "../data/models/index.js";
+import {EventModel, CurrentEventModel, PostModel} from "../data/models/index.js";
+import EventDto from "../dto/EventDto.js";
 
 class EventService {
   constructor() {
@@ -16,13 +17,24 @@ class EventService {
     } else {
       await this.currentEventReposytory.create({chatId, EventId: eventId});
     }
+    await event.createPost();
   }
 
-  async setName(chatId, name) {
-    const event = await this.getCurrentEvent(chatId);
-    event.name = name;
-    await event.save();
-    return event;
+  async getCurrentEvent(chatId) {
+    const currentEvent = await this.currentEventReposytory.findOne({
+      where: {chatId},
+      include: [{
+        model: EventModel,
+        include: [PostModel],
+      }],
+    });
+
+    return currentEvent.Event;
+  }
+
+  async getEventDto(chatId) {
+    const eventModel = await this.getCurrentEvent(chatId);
+    return EventDto.fromEventModel(eventModel);
   }
 
   async setField(chatId, fieldName, value) {
@@ -30,15 +42,16 @@ class EventService {
     event[fieldName] = value;
     await event.save();
     return event;
-}
+  }
 
-  async getCurrentEvent(chatId) {
-    const currentEvent = await this.currentEventReposytory.findOne({
-      where: {chatId},
-      include: EventModel,
-    });
-
-    return currentEvent.Event;
+  async setPostField(chatId, fieldName, value) {
+    const event = await this.getCurrentEvent(chatId, {withModel: ['post']});
+    console.log(event);
+    const post = event.Post;
+    console.log(post);
+    post[fieldName] = value;
+    await post.save();
+    return post;
   }
 
   async getImageId(chatId) {

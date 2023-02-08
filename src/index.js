@@ -51,6 +51,9 @@ bot.on("callback_query", async (msg) => {
     case "show_image":
       await botService.showImage(chatId, formMessageId);
       break;
+    case "add_fb":
+      await botService.requestUpdatePostField(chatId, formMessageId, 'fb', 'Введіть посилання на facebook event');
+      break;
     default:
       new Error('Command not found');
   }

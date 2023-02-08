@@ -15,6 +15,4 @@ const CurrentEventModel = sequelize.define('CurrentEvent', {
 
 CurrentEventModel.belongsTo(EventModel);
 
-CurrentEventModel.sync();
-
 export default CurrentEventModel;

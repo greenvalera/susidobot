@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
+    "start": "node -r dotenv/config src/index.js dotenv_config_path=.production.env",
+    "dev": "node -r dotenv/config src/index.js dotenv_config_path=.development.env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "GreenSmileMind",

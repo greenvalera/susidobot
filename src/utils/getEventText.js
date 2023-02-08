@@ -6,7 +6,7 @@ const contentMap = {
   location: data => `Місце: ${data}`,
   description: data => `Опис:
    ${data}`,
-
+  fb: data => `Facebook: ${data}`,
 };
 
 const getEventText = (event) => {

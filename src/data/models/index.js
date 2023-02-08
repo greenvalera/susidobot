@@ -1,4 +1,9 @@
-import EventModel from "./EventModel.js";
 import CurrentEventModel from "./CurrentEventModel.js";
+import EventModel from "./EventModel.js";
+import PostModel from "./PostModel.js";
 
-export {EventModel, CurrentEventModel};
+EventModel.sync();
+PostModel.sync();
+CurrentEventModel.sync();
+
+export {EventModel, CurrentEventModel, PostModel};

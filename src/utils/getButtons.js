@@ -28,6 +28,39 @@ const showButtonsMap = {
   },
 };
 
+const socialButtonsMap = {
+  fb: {
+    show: {
+      text: "FB посилання",
+      callback_data: 'show_fb',
+    },
+    add: {
+      text: "Додати FB посилання",
+      callback_data: 'add_fb',
+    }
+  }
+}
+
+/**
+ * Check event for all required fields are filled
+ * @param eventModel
+ * @return {boolean}
+ */
+const isEventCompleted = (eventModel) => {
+  const checkedFields = [
+    'name',
+    'date',
+    'location',
+    'description',
+    'image'
+  ];
+
+  return !(checkedFields
+    .map(field => !!eventModel[field])
+    .filter(fieldIsset => !fieldIsset)
+    .length);
+}
+
 const getButtons = (event) => {
   const addButtons = Object
     .keys(buttonsMap)
@@ -43,12 +76,19 @@ const getButtons = (event) => {
     })
     .filter(button => !!button);
 
-  console.log(addButtons);
-  console.log(showButtons);
-  console.log([...addButtons, ...showButtons]);
+  const socialButtons = Object
+    .keys(socialButtonsMap)
+    .map((key) => {
+      return event[key] ? [socialButtonsMap[key].show] : [socialButtonsMap[key].add];
+    });
 
+  let resultButtons = [...addButtons, ...showButtons];
 
-  return [...addButtons, ...showButtons];
+  if (isEventCompleted(event)) {
+    resultButtons = resultButtons.concat(socialButtons);
+  }
+
+  return resultButtons;
 };
 
 export default getButtons;

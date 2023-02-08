@@ -9,7 +9,7 @@ class BotService {
   }
 
   async sendEvent(chatId) {
-    const event = await this.eventService.getCurrentEvent(chatId);
+    const event = await this.eventService.getEventDto(chatId);
     const buttons = getButtons(event);
     const content = getEventText(event);
 
@@ -21,7 +21,7 @@ class BotService {
   }
 
   async refreshEvent(chatId, messageId) {
-    const event = await this.eventService.getCurrentEvent(chatId);
+    const event = await this.eventService.getEventDto(chatId);
     const buttons = getButtons(event);
     const content = getEventText(event);
 
@@ -56,6 +56,15 @@ class BotService {
 
     this.bot.onReplyToMessage(chatId, promptMessage.message_id, async (msg) => {
       await this.eventService.setField(chatId, fieldName, msg.text);
+      await this.refreshEvent(chatId, formMessageId)
+    });
+  }
+
+  async requestUpdatePostField(chatId, formMessageId, fieldName, questionText) {
+    const promptMessage = await this.sendQuestion(chatId, questionText);
+
+    this.bot.onReplyToMessage(chatId, promptMessage.message_id, async (msg) => {
+      await this.eventService.setPostField(chatId, fieldName, msg.text);
       await this.refreshEvent(chatId, formMessageId)
     });
   }
