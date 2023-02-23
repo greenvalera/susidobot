@@ -16,5 +16,9 @@
     "mysql2": "^3.0.1",
     "node-telegram-bot-api": "^0.61.0",
     "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "sequelize-cli": "^6.6.0"
   }
 }
