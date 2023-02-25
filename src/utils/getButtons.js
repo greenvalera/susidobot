@@ -28,6 +28,49 @@ const showButtonsMap = {
   },
 };
 
+const mainButtonsMap = {
+  name: {
+    show: {
+      text: "Змінити імʼя",
+      callback_data: 'edit_name',
+    },
+    add: {
+      text: "Додати імʼя",
+      callback_data: 'add_name',
+    },
+  },
+  date: {
+    show: {
+      text: "Змінити дату",
+      callback_data: 'edit_date',
+    },
+    add: {
+      text: "Додати дату",
+      callback_data: 'add_date',
+    },
+  },
+  location: {
+    show: {
+      text: "Змінити місце",
+      callback_data: 'edit_location',
+    },
+    add: {
+      text: "Додати місце",
+      callback_data: 'add_location',
+    },
+  },
+  description: {
+    show: {
+      text: "Змінити опис",
+      callback_data: 'edit_description',
+    },
+    add: {
+      text: "Додати опис",
+      callback_data: 'add_description',
+    },
+  },
+};
+
 const socialButtonsMap = {
   fb: {
     show: {
@@ -63,11 +106,10 @@ const isEventCompleted = (eventModel) => {
 
 const getButtons = (event) => {
   const addButtons = Object
-    .keys(buttonsMap)
+    .keys(mainButtonsMap)
     .map((key) => {
-      return event[key] ? null : [buttonsMap[key]];
-    })
-    .filter(button => !!button);
+      return event[key] ? [mainButtonsMap[key].show] : [mainButtonsMap[key].add];
+    });
 
   const showButtons = Object
     .keys(showButtonsMap)

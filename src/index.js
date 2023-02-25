@@ -34,15 +34,19 @@ bot.on("callback_query", async (msg) => {
 
   switch (msg.data) {
     case "add_name":
+    case "edit_name":
       await botService.requestUpdateField(chatId, formMessageId, 'name', 'Введіть назву');
       break;
     case "add_date":
+    case "edit_date":
       await botService.requestUpdateField(chatId, formMessageId, 'date', 'Введіть дату');
       break;
     case "add_location":
+    case "edit_location":
       await botService.requestUpdateField(chatId, formMessageId, 'location', 'Введіть місце');
       break;
     case "add_description":
+    case "edit_description":
       await botService.requestUpdateField(chatId, formMessageId, 'description', 'Введіть текст івенту');
       break;
     case "add_image":
