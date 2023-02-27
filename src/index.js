@@ -50,6 +50,7 @@ bot.on("callback_query", async (msg) => {
       await botService.requestUpdateField(chatId, formMessageId, 'description', 'Введіть текст івенту');
       break;
     case "add_image":
+    case "edit_image":
       await botService.requestUpdateImage(chatId, formMessageId);
       break;
     case "show_image":

@@ -69,6 +69,16 @@ const mainButtonsMap = {
       callback_data: 'add_description',
     },
   },
+  image: {
+    show: {
+      text: "Змінити картинку",
+      callback_data: 'edit_image',
+    },
+    add: {
+      text: "Додати картинку",
+      callback_data: 'add_image',
+    },
+  },
 };
 
 const socialButtonsMap = {
