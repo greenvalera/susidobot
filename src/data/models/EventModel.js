@@ -1,6 +1,7 @@
 import {DataTypes, STRING} from "sequelize";
 import sequelize from "../sequelize/index.js";
 import PostModel from "./PostModel.js";
+import UserRoleModel from "./UserRoleModel.js";
 
 const EventModel = sequelize.define('Event', {
   id: {
@@ -32,5 +33,6 @@ const EventModel = sequelize.define('Event', {
 });
 
 EventModel.hasOne(PostModel);
+EventModel.hasMany(UserRoleModel);
 
 export default EventModel;
